@@ -172,12 +172,37 @@ class LinkedList {
       return temp;
     }
   }
+
+  // Get Methode
+
+  get(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    let temp = this.head;
+    for (let i = 0; i < index; i++) {
+      temp = temp.next;
+    }
+    return temp;
+  }
+
+  // Set Methode
+
+  set(index, value) {
+    let temp = this.get(index);
+    if (temp) {
+      temp.value = value;
+      return true;
+    }
+    return false;
+  }
 }
 
 let myLinkedList = new LinkedList(7);
 
 myLinkedList.push(4);
-
+myLinkedList.push(3);
+myLinkedList.push(2);
+myLinkedList.set(1, 5);
 // myLinkedList.unshift(5);
+// myLinkedList.get(2).value
 
-console.log(myLinkedList.shift()); // 4
+console.log(myLinkedList); // 4
