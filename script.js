@@ -112,12 +112,65 @@ class LinkedList {
     }
     this.tail = pre;
     this.tail.next = null;
-    --this.length;
+    this.length--;
     if (this.length === 0) {
       this.head = null;
       this.tail = null;
     }
     return temp;
+  }
+
+  // Unshift Methode
+
+  /*
+
+
+                             head             tail
+                              ||               ||
+            4=>(null)     ==> 11 => 3 => 7 => null
+
+
+  
+  */
+
+  unshift(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+    this.length++;
+    return this;
+  }
+
+  // Shift Methode
+
+  /*
+  
+
+           temp    head      tail
+            ||      ||        ||
+        |   11=> |  3 => 23 => 7 => null    
+  
+  
+  */
+
+  shift() {
+    if (!this.head) {
+      return undefined;
+    } else {
+      let temp = this.head;
+      this.head = this.head.next;
+      temp.next = null;
+      this.length--;
+      if (this.length == 0) {
+        this.tail = null;
+      }
+      return temp;
+    }
   }
 }
 
@@ -125,5 +178,6 @@ let myLinkedList = new LinkedList(7);
 
 myLinkedList.push(4);
 
-console.log(myLinkedList);
-console.log(myLinkedList.pop()); // 4
+// myLinkedList.unshift(5);
+
+console.log(myLinkedList.shift()); // 4
