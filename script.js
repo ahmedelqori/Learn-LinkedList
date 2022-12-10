@@ -194,15 +194,86 @@ class LinkedList {
     }
     return false;
   }
+
+  // Insert
+
+  insert(index, value) {
+    if (index === 0) return this.unshift(value);
+    if (index === this.length) return this.push(value);
+    if (index < 0 || index > this.length) return false;
+
+    const newNode = new Node(value);
+    const temp = this.get(index - 1);
+
+    newNode.next = temp.next;
+    temp.next = newNode;
+    this.length++;
+    return true;
+  }
+
+  // remove item
+
+  remove(index) {
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+    if (index < 0 || index >= this.length) return undefined;
+
+    const before = this.get(index - 1);
+    const temp = before.next;
+
+    before.next = temp.next;
+    temp.next = null;
+    this.length--;
+    return temp;
+  }
+
+  // Reverse
+
+  /*
+      
+         head            tail
+          ||              ||
+          11 => 3 => 23 => 7 => null
+      
+                   |
+                   V
+         temp          tail head
+          ||              ||
+          11 => 3 => 23 => 7 => null
+
+                  |
+                  V
+
+        tail              head
+          ||               ||
+  null <= 11 <= 3 <= 23 <= 7 
+
+      */
+
+  reverse() {
+    let temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+    let next = temp.next;
+    let prev = null;
+    for (let i = 0; i < this.length; i++) {
+      next = temp.next;
+      temp.next = prev;
+      prev = temp;
+      temp = next;
+    }
+    return this;
+  }
 }
 
 let myLinkedList = new LinkedList(7);
 
 myLinkedList.push(4);
-myLinkedList.push(3);
-myLinkedList.push(2);
-myLinkedList.set(1, 5);
+// myLinkedList.push(3);
+// myLinkedList.push(2);
+// myLinkedList.set(1, 5);
 // myLinkedList.unshift(5);
-// myLinkedList.get(2).value
-
-console.log(myLinkedList); // 4
+// myLinkedList.get(2).value;
+// myLinkedList.insert(2, 100);
+// myLinkedList.remove(0); //  => return 7
+console.log(myLinkedList.reverse()); // 4
